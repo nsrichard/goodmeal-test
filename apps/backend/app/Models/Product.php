@@ -13,6 +13,12 @@ class Product extends Model
 
     protected $guarded = [];
 
+    public function fillAndSave($data)
+    {
+        $this->fill($data);
+        return $this->save();
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

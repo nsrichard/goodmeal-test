@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\StoreController;
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +16,4 @@ use App\Http\Controllers\Api\StoreController;
 */
 
 Route::resource('store', StoreController::class);
+Route::resource('product', ProductController::class);

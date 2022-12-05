@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->string('color');
+            $table->string('color')->nullable();
             $table->timestamps();
         });
     }
