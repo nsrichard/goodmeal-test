@@ -15,7 +15,7 @@ class CreateStoreOpeningsTable extends Migration
     {
         Schema::create('store_openings', function (Blueprint $table) {
             $table->id();
-            $table->foreign('store_id')->constrained();
+            $table->foreignId('store_id')->constrained();
             $table->tinyInteger('weekday');
             $table->time('open');
             $table->time('close');

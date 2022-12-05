@@ -15,10 +15,14 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreign('store_id')->constrained();
-            $table->foreign('user_id')->constrained();
+            $table->foreignId('store_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->dateTime('delivery_at');
             $table->enum('status', ['pending', 'accepted', 'transit', 'delivered', 'cancelled']);
+            $table->float('amount');
+            $table->float('discount');
+            $table->float('delivery');
+            $table->float('total');
             $table->timestamps();
         });
     }

@@ -13,6 +13,12 @@ class Store extends Model
 
     protected $guarded = [];
 
+    public function fillAndSave($data)
+    {
+        $this->fill($data);
+        return $this->save();
+    }
+
     public function products()
     {
         return $this->hasMany(Product::class);

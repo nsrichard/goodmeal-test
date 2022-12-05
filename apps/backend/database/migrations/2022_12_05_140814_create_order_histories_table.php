@@ -15,7 +15,7 @@ class CreateOrderHistoriesTable extends Migration
     {
         Schema::create('order_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreign('order_id')->constrained();
+            $table->foreignId('order_id')->constrained();
             $table->enum('status', ['pending', 'accepted', 'transit', 'delivered', 'cancelled']);
             $table->timestamps();
         });
