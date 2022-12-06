@@ -19,13 +19,13 @@ class ProductController extends Controller
             if ($store_id > -1){
                 $query->where('store_id', '=', $store_id);
             }
-        })->get();
+        })->with('category')->get();
         return $this->response(StatusCode::HTTP_OK, 'OK', ['message' => 'products list', 'data' => $products]);
     }
 
     public function show(Product $product)
     {
-        return $this->response(StatusCode::HTTP_OK, 'OK', ['message' => 'found data', 'data' => $product]);
+        return $this->response(StatusCode::HTTP_OK, 'OK', ['message' => 'found data', 'data' => $product->load('category')]);
     }
 
     public function store(ProductRequest $request){
