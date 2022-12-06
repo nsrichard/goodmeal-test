@@ -16,24 +16,24 @@
 		</div>
 
 		<div class="pt-4">
-			<article v-for="item in itemsResults" :key="item.index" class="mb-4">
+			<article v-for="item in itemsResults" :key="item.id" class="mb-4">
 				<div class="bg-white relative shadow rounded-lg mx-auto">
-					<div class="bg-[url('https://dummyimage.com/600x200/c7c7c7/000000.jpg')] bg-cover p-4 rounded-tl-lg rounded-tr-lg">
+					<div class="bg-[url('')] bg-cover p-4 rounded-tl-lg rounded-tr-lg">
 						<div class="my-2">
-							<span class="text-md text-white font-medium bg-store-secondary py-1 px-3 rounded-lg">Hoy de 09:00 - 12:00</span>
+							<span class="text-md text-white font-medium bg-store-secondary py-1 px-3 rounded-lg">Hoy de {{ item.Opening.open }} - {{ item.Opening.close }}</span>
 						</div>
 						<div class="my-2">
-							<span class="text-sm text-store-secondary bg-pink-200 font-medium py-1 px-3 rounded-lg">Retiro en local</span>
+							<span class="text-sm text-store-secondary bg-pink-200 font-medium py-1 px-3 rounded-lg">{{ item.service }}</span>
 						</div>
 					</div>
 					<div class="flex justify-center relative">
-						<img src="https://avatars0.githubusercontent.com/u/35900628?v=4" alt="" class="rounded-full mx-auto absolute -top-8 right-8 w-16 h-16 shadow-md">
+						<img :src="item.logo" alt="" class="rounded-full mx-auto absolute -top-8 right-8 w-16 h-16 shadow-md">
 					</div>
 					<div class="p-2">
-						<h3 class="font-bold text-2md text-gray-900">Pantazi Software</h3>
+						<h3 class="font-bold text-2md text-gray-900">{{ item.name }}</h3>
 						<p class="text-sm text-gray-400 font-medium">
-							<span class="text-sm text-store-secondary font-medium font-bold">Desde $5.000</span>
-							<del class="text-sm text-gray-300 font-medium font-bold ml-3">$5.000</del>
+							<span class="text-sm text-store-secondary font-bold">Desde ${{ item.FromPrice }}</span>
+							<del class="text-sm text-gray-300 font-bold ml-3">$0.000</del>
 						</p>
 						<div class="flex">
 							<div class="w-1/4">
@@ -59,9 +59,16 @@
 
 <script setup>
 import { ref } from "vue";
+import axios from "axios";
 
+const queryTimeout = ref(null);
 const itemsResults = ref(null);
 
-itemsResults.value = [0, 1, 2, 3];
+clearTimeout(queryTimeout.value);
+queryTimeout.value = setTimeout(async () => {
+	const result = await axios.get(`https://server.local/goodmeal/apps/backend/public/api/store`);
+	itemsResults.value = result.data.response.data;
+	return;
+}, 300);
 
 </script>
