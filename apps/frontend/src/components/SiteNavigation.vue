@@ -1,8 +1,8 @@
 <template>
-	<header class="sticky top-0 bg-store-primary shadow-lg">
-		<nav class="container flex flex-col sm:flex-row items-center text-black gap-4 py-6">
+	<header class="sticky top-0 bg-store-primary shadow-lg z-50">
+		<nav class="container flex text-black gap-4 py-6">
 			<RouterLink :to="{ name: 'home' }">
-				<div class="flex items-center gap-3">
+				<div class="flex gap-3">
 					<p class="text-2xl ">Goodmeal</p>
 				</div>
 			</RouterLink>
