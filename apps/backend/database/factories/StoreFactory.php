@@ -16,9 +16,11 @@ class StoreFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'about' => $this->faker->paragraph(),
-            'logo' => $this->faker->url(),
-            'banner' => $this->faker->url(),
-            'service' => $this->faker->randomElement(['store' ,'delivery', 'all'])
+            'logo' => $this->faker->imageUrl(70, 70),
+            'banner' => $this->faker->imageUrl(400, 200),
+            'service' => $this->faker->randomElement(['store' ,'delivery', 'all']),
+            'lat' => $this->faker->latitude(),
+            'lng' => $this->faker->longitude(),
         ];
     }
 }

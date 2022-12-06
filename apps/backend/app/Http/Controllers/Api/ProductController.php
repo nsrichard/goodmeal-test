@@ -12,9 +12,14 @@ use App\Models\Store;
 class ProductController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::get();
+        $store_id = (int) $request->input('store_id', -1);
+        $products = Product::where(function ($query) use ($store_id){
+            if ($store_id > -1){
+                $query->where('store_id', '=', $store_id);
+            }
+        })->get();
         return $this->response(StatusCode::HTTP_OK, 'OK', ['message' => 'products list', 'data' => $products]);
     }
 
