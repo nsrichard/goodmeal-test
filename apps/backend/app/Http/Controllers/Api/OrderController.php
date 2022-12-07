@@ -21,7 +21,7 @@ class OrderController extends Controller
 	 * )*/
 	public function index()
 	{
-		$orders = Order::get();
+		$orders = Order::with('store')->with('detail')->get();
 		return $this->response(StatusCode::HTTP_OK, 'OK', ['message' => 'orders list', 'data' => $orders]);
 	}
 
@@ -34,7 +34,7 @@ class OrderController extends Controller
 	 * )*/
 	public function show(Order $order)
 	{
-		return $this->response(StatusCode::HTTP_OK, 'OK', ['message' => 'found data', 'data' => $order->load('details')]);
+		return $this->response(StatusCode::HTTP_OK, 'OK', ['message' => 'found data', 'data' => $order->load('store')->load('detail.product')]);
 	}
 
 	/** @OA\Post(path="/api/order", tags={"order"}, summary="add order",

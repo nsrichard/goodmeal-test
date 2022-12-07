@@ -8,7 +8,7 @@
 				</RouterLink>
 			</div>
 			<div class="w-1/3">
-				<RouterLink :to="{ name: 'home' }">
+				<RouterLink :to="{ name: 'orders' }">
 					<i class="fa-solid fa-clipboard-list text-xl cursor-pointer"></i>
 					<span class="text-xs block">Órdenes</span>
 				</RouterLink>
