@@ -6,12 +6,436 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/product": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "product list",
+                "operationId": "e68b1eace49fb57d47cb6e34def392ca",
+                "parameters": [
+                    {
+                        "name": "store_id",
+                        "in": "path",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "HTTP_OK"
+                    },
+                    "401": {
+                        "description": "HTTP_UNAUTHORIZED"
+                    },
+                    "500": {
+                        "description": "HTTP_INTERNAL_SERVER_ERROR"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "add product",
+                "operationId": "f6c6fa48346dd08aae3060e1e8765913",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "store_id": {
+                                        "type": "integer"
+                                    },
+                                    "category_id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "string"
+                                    },
+                                    "discount": {
+                                        "type": "string"
+                                    },
+                                    "stock": {
+                                        "type": "number",
+                                        "format": "double"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "store_id": 1,
+                                    "category_id": 1,
+                                    "name": "test name",
+                                    "description": "description data",
+                                    "image": "https://www...",
+                                    "price": 15.5,
+                                    "discount": 20,
+                                    "stock": 25
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "HTTP_CREATED"
+                    },
+                    "403": {
+                        "description": "HTTP_FORBIDDEN"
+                    },
+                    "500": {
+                        "description": "HTTP_INTERNAL_SERVER_ERROR"
+                    }
+                }
+            }
+        },
+        "/api/product/{id}": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "show product",
+                "operationId": "3a462c6271dfd581c8c589efd97cbde4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "HTTP_OK"
+                    },
+                    "404": {
+                        "description": "HTTP_NOT_FOUND"
+                    },
+                    "401": {
+                        "description": "HTTP_UNAUTHORIZED"
+                    },
+                    "500": {
+                        "description": "HTTP_INTERNAL_SERVER_ERROR"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "update product",
+                "operationId": "34913f3e4a52dfddcf956f5c1411beb6",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "store_id": {
+                                        "type": "integer"
+                                    },
+                                    "category_id": {
+                                        "type": "integer"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string"
+                                    },
+                                    "price": {
+                                        "type": "string"
+                                    },
+                                    "discount": {
+                                        "type": "string"
+                                    },
+                                    "stock": {
+                                        "type": "number",
+                                        "format": "double"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "store_id": 1,
+                                    "category_id": 1,
+                                    "name": "test name",
+                                    "description": "description data",
+                                    "image": "https://www...",
+                                    "price": 15.5,
+                                    "discount": 20,
+                                    "stock": 25
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "HTTP_OK"
+                    },
+                    "404": {
+                        "description": "HTTP_NOT_FOUND"
+                    },
+                    "403": {
+                        "description": "HTTP_FORBIDDEN"
+                    },
+                    "500": {
+                        "description": "HTTP_INTERNAL_SERVER_ERROR"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "product"
+                ],
+                "summary": "delete product",
+                "operationId": "d93d1d68aebf2ea8787a7aae75af1edb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "HTTP_OK"
+                    },
+                    "404": {
+                        "description": "HTTP_NOT_FOUND"
+                    },
+                    "403": {
+                        "description": "HTTP_FORBIDDEN"
+                    },
+                    "500": {
+                        "description": "HTTP_INTERNAL_SERVER_ERROR"
+                    }
+                }
+            }
+        },
         "/api/store": {
             "get": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "Store list",
                 "operationId": "69ab226e7ad5bc26e6f79dc000c98f81",
                 "responses": {
                     "200": {
-                        "description": "stores list"
+                        "description": "HTTP_OK"
+                    },
+                    "401": {
+                        "description": "HTTP_UNAUTHORIZED"
+                    },
+                    "500": {
+                        "description": "HTTP_INTERNAL_SERVER_ERROR"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "add store",
+                "operationId": "1c859e1a0322fc4513a1f6ccec1003ca",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "about": {
+                                        "type": "string"
+                                    },
+                                    "logo": {
+                                        "type": "string"
+                                    },
+                                    "banner": {
+                                        "type": "string"
+                                    },
+                                    "service": {
+                                        "type": "string"
+                                    },
+                                    "lat": {
+                                        "type": "number",
+                                        "format": "double"
+                                    },
+                                    "lng": {
+                                        "type": "number",
+                                        "format": "double"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "test name",
+                                    "about": "about data",
+                                    "logo": "https://www...",
+                                    "banner": "https://www...",
+                                    "service": "all",
+                                    "lat": 79.58484981,
+                                    "lng": 19.61854198
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "HTTP_CREATED"
+                    },
+                    "403": {
+                        "description": "HTTP_FORBIDDEN"
+                    },
+                    "500": {
+                        "description": "HTTP_INTERNAL_SERVER_ERROR"
+                    }
+                }
+            }
+        },
+        "/api/store/{id}": {
+            "get": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "show store",
+                "operationId": "6ea14485662e26983ae2cf2e3dce00a0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "HTTP_OK"
+                    },
+                    "404": {
+                        "description": "HTTP_NOT_FOUND"
+                    },
+                    "401": {
+                        "description": "HTTP_UNAUTHORIZED"
+                    },
+                    "500": {
+                        "description": "HTTP_INTERNAL_SERVER_ERROR"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "update store",
+                "operationId": "d8d4c15d13223ec92e7dca74fed6d082",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "about": {
+                                        "type": "string"
+                                    },
+                                    "logo": {
+                                        "type": "string"
+                                    },
+                                    "banner": {
+                                        "type": "string"
+                                    },
+                                    "service": {
+                                        "type": "string"
+                                    },
+                                    "lat": {
+                                        "type": "number",
+                                        "format": "double"
+                                    },
+                                    "lng": {
+                                        "type": "number",
+                                        "format": "double"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "test name",
+                                    "about": "about data",
+                                    "logo": "https://www...",
+                                    "banner": "https://www...",
+                                    "service": "all",
+                                    "lat": 79.58484981,
+                                    "lng": 19.61854198
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "HTTP_OK"
+                    },
+                    "404": {
+                        "description": "HTTP_NOT_FOUND"
+                    },
+                    "403": {
+                        "description": "HTTP_FORBIDDEN"
+                    },
+                    "500": {
+                        "description": "HTTP_INTERNAL_SERVER_ERROR"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "store"
+                ],
+                "summary": "delete store",
+                "operationId": "4a12617d4a24703356dc0a8e59a4be9c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "HTTP_OK"
+                    },
+                    "404": {
+                        "description": "HTTP_NOT_FOUND"
+                    },
+                    "403": {
+                        "description": "HTTP_FORBIDDEN"
+                    },
+                    "500": {
+                        "description": "HTTP_INTERNAL_SERVER_ERROR"
                     }
                 }
             }
