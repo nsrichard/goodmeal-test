@@ -1,0 +1,20 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "OpenApi Goodmeal documentation",
+        "description": "Swagger OpenApi documentation",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/store": {
+            "get": {
+                "operationId": "69ab226e7ad5bc26e6f79dc000c98f81",
+                "responses": {
+                    "200": {
+                        "description": "stores list"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -11,6 +11,12 @@ use App\Models\Store;
 class StoreController extends Controller
 {
 
+    /**
+     * @OA\Get(
+     *     path="/api/store",
+     *     @OA\Response(response="200", description="stores list")
+     * )
+     */
     public function index()
     {
         $stores = Store::get();
