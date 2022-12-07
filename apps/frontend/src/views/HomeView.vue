@@ -16,14 +16,14 @@
 		</div>
 
 		<div class="pt-4">
-			<article v-for="item in itemsResults" :key="item.id" class="mb-4">
+			<article v-for="item in stores" :key="item.id" class="mb-4">
 				<div class="bg-white relative shadow rounded-lg mx-auto">
-					<div class="bg-[url('')] bg-cover p-4 rounded-tl-lg rounded-tr-lg">
+					<div :style="styleBackground(item.banner)" class="p-4 rounded-tl-lg rounded-tr-lg">
 						<div class="my-2">
-							<span class="text-md text-white font-medium bg-store-secondary py-1 px-3 rounded-lg">Hoy de {{ item.Opening.open }} - {{ item.Opening.close }}</span>
+							<span class="text-md text-white font-medium bg-store-secondary py-1 px-3 rounded-lg">Hoy de {{ timeFormat(item.Opening.open) }} - {{ item.Opening.close }}</span>
 						</div>
 						<div class="my-2">
-							<span class="text-sm text-store-secondary bg-pink-200 font-medium py-1 px-3 rounded-lg">{{ item.service }}</span>
+							<span class="text-sm text-store-secondary bg-pink-200 font-medium py-1 px-3 rounded-lg">{{ timeFormat(item.ServiceName) }}</span>
 						</div>
 					</div>
 					<div class="flex justify-center relative">
@@ -33,19 +33,19 @@
 						<h3 class="font-bold text-2md text-gray-900">{{ item.name }}</h3>
 						<p class="text-sm text-gray-400 font-medium">
 							<span class="text-sm text-store-secondary font-bold">Desde ${{ item.FromPrice }}</span>
-							<del class="text-sm text-gray-300 font-bold ml-3">$0.000</del>
+							<del class="text-sm text-gray-300 font-bold ml-3">${{ item.FromOldPrice }}</del>
 						</p>
 						<div class="flex">
 							<div class="w-1/4">
 								<i class="fa-solid fa-person-walking"></i>
-								<span class="text-xs ml-2">11 min</span>
+								<span class="text-xs ml-2">{{ timeArrival() }}</span>
 							</div>
 							<div class="w-1/4">
 								<i class="fa-sharp fa-solid fa-location-dot"></i>
-								<span class="text-xs ml-2">0.5 km</span>
+								<span class="text-xs ml-2">{{ item.Distance }} km</span>
 							</div>
 							<div class="w-2/4 text-right">
-								<span class="font-bold text-md mr-2">5</span>
+								<span class="font-bold text-md mr-2">{{ ( item.TotalProducts > 10) ? '10+' : item.TotalProducts}}</span>
 								<i class="fa-solid fa-bag-shopping"></i>
 							</div>
 						</div>
@@ -58,17 +58,23 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import axios from "axios";
+import useStores from "@/composables/stores";
+import { computed } from "@vue/reactivity";
+import { onMounted } from "vue";
+import moment from 'moment';
 
-const queryTimeout = ref(null);
-const itemsResults = ref(null);
+const { stores, getStores } = useStores()
+onMounted(getStores)
 
-clearTimeout(queryTimeout.value);
-queryTimeout.value = setTimeout(async () => {
-	const result = await axios.get(`https://server.local/goodmeal/apps/backend/public/api/store`);
-	itemsResults.value = result.data.response.data;
-	return;
-}, 300);
+const styleBackground = computed(() =>{
+	return url => 'background:url(' + url + ') no-repeat center center; background-size: cover;';
+})
 
+let timeArrival = () => {
+	// can be calculated based on distance
+	return Math.ceil(Math.random(1, 40) * 100) + ' Min.';
+}
+let timeFormat = (value)  => {
+    return moment('2000-01-01 ' + value).format('HH:mm');
+}
 </script>

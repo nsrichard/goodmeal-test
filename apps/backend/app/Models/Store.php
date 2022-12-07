@@ -8,6 +8,8 @@ use App\Models\Product;
 use App\Models\StoreOpening;
 use Carbon\Carbon;
 
+use App\Helpers\Misc;
+
 class Store extends Model
 {
     use HasFactory;
@@ -18,7 +20,7 @@ class Store extends Model
 
     protected $dates = ['created_at', 'updated_at'];
 
-    protected $appends = ['FromPrice', 'Opening'];
+    protected $appends = ['FromPrice', 'FromOldPrice', 'Opening', 'ServiceName', 'TotalProducts', 'Distance'];
 
     public function fillAndSave($data)
     {
@@ -28,12 +30,42 @@ class Store extends Model
 
     public function getFromPriceAttribute()
     {
-        return $this->products()->min('price');
+        $product = $this->products()->orderBy('price', 'desc')->first();
+        return $product->price * $product->discount / 100;
+    }
+
+    public function getFromOldPriceAttribute()
+    {
+        $product = $this->products()->orderBy('price', 'desc')->first();
+        return $product->price;
+    }
+
+    public function getTotalProductsAttribute()
+    {
+        return $this->products()->count();
     }
 
     public function getOpeningAttribute()
     {
         return $this->openings()->where('weekday', Carbon::now()->dayOfWeek)->first();
+    }
+
+    public function getServiceNameAttribute()
+    {
+        if ($this->service == 'store'){
+            return "Retiro en local";
+        } else if ($this->service == 'delivery'){
+            return "Delivery";
+        }
+        return "Retiro o Delivery"; 
+    }
+
+    public function getDistanceAttribute()
+    {
+        // assuming we are in Santiago de Chile
+        $currentLat = -33.4727879;
+        $currentLng = -70.6298313;
+        return round(Misc::distance($currentLat, $currentLng, $this->lat, $this->lng), 2);
     }
 
     public function products()
