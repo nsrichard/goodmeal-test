@@ -21,6 +21,14 @@
 			</div>
 		</nav>
 	</footer>
+
+	<div class="fixed bottom-20 right-5">
+		<RouterLink :to="{ name: 'cart' }">
+			<button class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-400 ">
+				Carrito <i class="fa-solid fa-cart-shopping"></i>
+			</button>
+		</RouterLink>
+	</div>
 </template>
 
 <script setup>

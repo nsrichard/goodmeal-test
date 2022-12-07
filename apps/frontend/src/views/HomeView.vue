@@ -17,13 +17,14 @@
 
 		<div class="pt-4">
 			<article v-for="item in stores" :key="item.id" class="mb-4">
+				<RouterLink :to="{ name: 'store', params: { id: item.id } } ">
 				<div class="bg-white relative shadow rounded-lg mx-auto">
 					<div :style="styleBackground(item.banner)" class="p-4 rounded-tl-lg rounded-tr-lg">
 						<div class="my-2">
-							<span class="text-md text-white font-medium bg-store-secondary py-1 px-3 rounded-lg">Hoy de {{ timeFormat(item.Opening.open) }} - {{ item.Opening.close }}</span>
+							<span class="text-md text-white font-medium bg-store-secondary py-1 px-3 rounded-lg">Hoy de {{ timeFormat(item.Opening.open) }} - {{ timeFormat(item.Opening.close) }}</span>
 						</div>
 						<div class="my-2">
-							<span class="text-sm text-store-secondary bg-pink-200 font-medium py-1 px-3 rounded-lg">{{ timeFormat(item.ServiceName) }}</span>
+							<span class="text-sm text-store-secondary bg-pink-200 font-medium py-1 px-3 rounded-lg">{{ item.ServiceName }}</span>
 						</div>
 					</div>
 					<div class="flex justify-center relative">
@@ -51,6 +52,7 @@
 						</div>
 					</div>
 				</div>
+				</RouterLink>
 			</article>
 		</div>
 

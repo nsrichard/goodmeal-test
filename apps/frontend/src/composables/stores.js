@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useRouter } from 'vue-router'
 
 export default function useStores() {
-    const store = ref([])
+    const store = ref(null)
     const stores = ref([])
 
     const errors = ref('')
@@ -16,7 +16,7 @@ export default function useStores() {
 
     const getStore = async (id) => {
         let response = await axios.get(`/api/store/${id}`)
-        store.value = response.data.data
+        store.value = response.data.response.data
     }
 
     const addStore = async (data) => {

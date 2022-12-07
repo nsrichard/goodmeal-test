@@ -31,7 +31,7 @@ class StoreController extends Controller
 	 * )*/
 	public function show(Store $store)
 	{
-		return $this->response(StatusCode::HTTP_OK, 'OK', ['message' => 'found data', 'data' => $store]);
+		return $this->response(StatusCode::HTTP_OK, 'OK', ['message' => 'found data', 'data' => $store->load('products.category')]);
 	}
 
 	/** @OA\Post(path="/api/store", tags={"store"}, summary="add store",

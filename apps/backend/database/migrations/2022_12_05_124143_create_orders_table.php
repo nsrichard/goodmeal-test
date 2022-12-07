@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->foreignId('store_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->dateTime('delivery_at');
+            $table->dateTime('delivery_at')->nullable();
             $table->enum('status', ['pending', 'accepted', 'transit', 'delivered', 'cancelled']);
             $table->float('amount');
             $table->float('discount');

@@ -31,7 +31,7 @@ class Store extends Model
     public function getFromPriceAttribute()
     {
         $product = $this->products()->orderBy('price', 'desc')->first();
-        return $product->price * $product->discount / 100;
+        return $product->price - ($product->price * $product->discount / 100);
     }
 
     public function getFromOldPriceAttribute()
