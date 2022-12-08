@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Tests\TestCase;
 use App\Models\Store;
+use App\Models\Category;
+use App\Models\Product;
 use Database\Factories\StoreFactory;
 
 class StoreManagementTest extends TestCase
@@ -20,6 +22,8 @@ class StoreManagementTest extends TestCase
 
         // fake data
         Store::factory()->count(2)->create();
+        Category::factory()->count(3)->create(); // for generate products and stock
+        Product::factory()->count(20)->create(); // for generate products and stock
 
         $response = $this->get('/api/store');
 

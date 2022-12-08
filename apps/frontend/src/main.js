@@ -8,6 +8,6 @@ const app = createApp(App);
 
 app.use(router);
 
-axios.defaults.baseURL = 'https://server.local';
+axios.defaults.baseURL = 'http://backend.local';
 
 app.mount("#app");

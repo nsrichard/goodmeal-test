@@ -18,7 +18,9 @@ class StoreController extends Controller
 	 * )*/
 	public function index()
 	{
-		$stores = Store::get();
+		$stores = Store::whereHas('products', function ($query) {
+            $query->where('stock', '>', 0);
+        })->get();
 		return $this->response(StatusCode::HTTP_OK, 'OK', ['message' => 'stores list', 'data' => $stores]);
 	}
 
